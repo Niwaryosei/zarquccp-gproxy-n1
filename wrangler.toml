@@ -1,0 +1,21 @@
+name = "zarquccp-gproxy-n1"
+main = "build/worker/shim.mjs"
+compatibility_date = "2026-09-01"
+
+# The deploy button provisions D1 and replaces this placeholder.
+[[d1_databases]]
+binding = "DB"
+database_name = "gproxy"
+database_id = "930f9b9b-7f3c-4362-a938-eb84bc103fc8"
+
+[assets]
+directory = "./public"
+binding = "ASSETS"
+not_found_handling = "single-page-application"
+run_worker_first = ["/*", "!/", "!/console", "!/console/*"]
+
+[vars]
+GPROXY_CONFIG = "{\"store\":{\"kind\":\"d1\",\"binding\":\"DB\"},\"cache\":{\"kind\":\"store\"}}"
+
+[secrets]
+required = ["GPROXY_ADMIN_PASSWORD", "GPROXY_MASTER_KEY"]
